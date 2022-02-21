@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-let  mixer, light, model, model2, renderer;
+let  mixer, light, model, model2;
 export default class ThreeScene2 extends Component {
     constructor(props) {
       super(props);
@@ -53,8 +53,6 @@ export default class ThreeScene2 extends Component {
       light.shadow.mapSize.width = 1024*4;
       light.shadow.mapSize.height = 1024*4;
 
-    const gray_color = new THREE.Color(0x57554f);
-    const yellow_color = new THREE.Color(0xe0c53a);
      
       //import glb file
       const loader2 = new GLTFLoader();
@@ -62,11 +60,7 @@ export default class ThreeScene2 extends Component {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         model = gltf.scene.children[0];
-        model.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
+    
 
         gltf.scene.position.set(0,0,0);
         gltf.scene.scale.set(2.8, 2.8, 2.8);
@@ -76,15 +70,10 @@ export default class ThreeScene2 extends Component {
       })
 
       const loader4 = new GLTFLoader();
-      loader2.load("./baodo4.glb", function (gltf) {
+      loader4.load("./baodo4.glb", function (gltf) {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         model = gltf.scene.children[0];
-        model.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
 
         gltf.scene.position.set(2,2.2,2);
         gltf.scene.scale.set(0.9, 0.9, 0.9);
@@ -97,11 +86,6 @@ export default class ThreeScene2 extends Component {
       loader3.load("./boyring5.glb", function (gltf) {
         console.log('in ra boyboy: ',gltf.scene);
         model2 = gltf.scene;
-        model2.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
 
         gltf.scene.position.set(4,0,2);
         gltf.scene.scale.set(1.8, 1.8, 1.8);
@@ -118,17 +102,10 @@ export default class ThreeScene2 extends Component {
           c.castShadow = true;
         });
 
-        mixer = new THREE.AnimationMixer( gltf.scene );
+        mixer = new THREE.AnimationMixer( gltf.scene );      
         
-        gltf.animations.forEach( ( clip ) => {
-          
-            mixer.clipAction( clip ).play();
-          
-        } );
         gltf.scene.scale.set(0.25, 0.25, 0.25);
         gltf.scene.position.set(0,1.8,3);
-
-        let object = gltf.scene.children[6];
         scene.add( gltf.scene );
 
       } );
@@ -145,8 +122,6 @@ export default class ThreeScene2 extends Component {
         );
         controls.autoRotate = false;
         controls.autoRotateSpeed = 0.0;
-        // hoverPieces();
-
         controls.update();
         renderer.render(scene, camera);
       }
@@ -155,20 +130,13 @@ export default class ThreeScene2 extends Component {
 
       
       function render() {
-				requestAnimationFrame(render);
-				// update the mmi
-				
+				requestAnimationFrame(render);				
 				renderer.render(scene, camera);
-            // calculate objects intersecting the picking ray
-
-            renderer.render( scene, camera );
 
           }       
           window.requestAnimationFrame(render)
 			
-			render();
-      
-
+			render();   
       
     }
     render() {
