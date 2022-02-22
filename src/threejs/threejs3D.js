@@ -130,8 +130,8 @@ export default class ThreeScene2 extends Component {
 
       
       function render() {
-				requestAnimationFrame(render);				
-				renderer.render(scene, camera);
+	requestAnimationFrame(render);				
+	renderer.render(scene, camera);
 
           }       
           window.requestAnimationFrame(render)
